@@ -5,3 +5,4 @@ App.Product = DS.Model.extend({
 	category: DS.belongsTo("category"),
 	
 });
+

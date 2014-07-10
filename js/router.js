@@ -12,8 +12,17 @@ App.CategoriesRoute = Ember.Route.extend({
 });
 
 App.CategoriesShowRoute = Ember.Route.extend({
+	queryParams: {
+		query: {
+			refreshModel: true,
+		},
+	},
+
 	model: function(params) {
-		return this.store.find('category', params.category_id)
+		return Ember.RSVP.hash({ 
+ 			category: this.store.find('category', params.category_id),
+			products: this.store.findQuery('product', params),
+		});
 	},
 	setupController: function(controller, model){
     controller.set("model", model);

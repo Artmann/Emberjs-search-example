@@ -1,9 +1,9 @@
 App.CategoriesShowController = Ember.ObjectController.extend({
+	queryParams: ['query'],
+	query: '',
 	actions: {
 		search: function() {
-			var products = this.store.find('product', {query: 'pear'});
-			console.log(this.get("products"));
-			this.set("content.products", products);
+				this.transitionToRoute({queryParams: {query: this.get('query')}});
 		},
 	}	
 });
