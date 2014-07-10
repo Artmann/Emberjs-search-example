@@ -4,7 +4,7 @@
 		array(
 			"id" => 1,
 			"name" => "Yellow Banana",
-			"text" => "A timeless classic.",
+			"text" => "A timeless classic. It's way better then a pear",
 			"price" => 50,
 			"category" => 2,
 		),
@@ -29,8 +29,40 @@
       "price" => 11,
       "category" => 3,
     ),
+    array(
+      "id" => 5,
+      "name" => "Tomato",
+      "text" => "Everyone loves tomatoes",
+      "price" => 18,
+      "category" => 1,
+    ),
+    array(
+      "id" => 6,
+      "name" => "Red Apple",
+      "text" => "Bring your teacher one!",
+      "price" => 11,
+      "category" => 1,
+    ),
+    array(
+      "id" => 7,
+      "name" => "Lemon",
+      "text" => "Yay lemons!",
+      "price" => 32,
+      "category" => 2,
+    ),
+
 	);
 
+$categoryFilter = array();
+if(isset($_GET["category_id"])) {
+	$cid = $_GET["category_id"];
+	foreach($productData as $product) {
+		if($product["category"] == $cid) {
+			$categoryFilter[] = $product;
+		}
+	}
+	$productData = $categoryFilter;
+}
 
 
 if(isset($_GET['ids'])) {
@@ -41,11 +73,11 @@ if(isset($_GET['ids'])) {
 		}
 	}
 }
-elseif(isset($_GET['query'])){
-	$query = $_GET['query'];
+elseif( isset($_GET['query']) && !empty($_GET['query']) ){
+	$query = strtolower(str_replace(".php", "", $_GET['query']));
   $products = array();
   foreach($productData as $product) {
-    if(strpos($query, $product["title"]) !== FALSE || strpos($query, $product["text"]) !== FALSE) {
+    if( strpos(strtolower($product["name"]), $query) !== FALSE || strpos(strtolower($product["text"]), $query) !== FALSE) {
       $products[] = $product;
     }
   }

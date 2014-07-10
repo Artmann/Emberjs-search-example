@@ -2,7 +2,7 @@
 	<head>
     <script src="js/libs/handlebars-v1.3.0.js"></script>
     <script src="js/libs/jquery-1.11.1.min.js"></script>
-		<script src="js/libs/ember.prod.js"></script>
+		<script src="js/libs/ember-canary.js"></script>
     <script src="js/libs/ember-data.js"></script>
 		
 		<script src="js/application.js"></script>
@@ -15,17 +15,22 @@
   	<script type="text/x-handlebars" data-template-name="categories">
 			<h3>Categories</h3>
 			{{#each category in model}}
-				{{#link-to 'categories.show' category}}{{category.name}}{{/link-to}}
+				{{#link-to 'categories.show' category }}{{category.name}}{{/link-to}}
 			{{/each}}
 			<hr/>
 			{{outlet}}
 		</script>		
 
 		<script type="text/x-handlebars" data-template-name="categories/show">
-			{{input value=""}} <button {{action 'search'}}>Search</button><br/>
+			{{view Ember.TextField valueBinding="controller.query"}} <button {{action 'search'}}>Search</button><br/>
 			<ul>
-			{{#each content.products }}
-				<li>{{name}}</li>
+			{{#each model.products }}
+				<li>
+					<strong>{{name}}</strong><br/>
+					<p>
+						{{text}}
+					</p>
+				</li>
 			{{/each}}		
 			</ul>
 		</script>
